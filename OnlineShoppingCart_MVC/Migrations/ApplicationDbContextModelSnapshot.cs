@@ -22,6 +22,27 @@ namespace OnlineShoppingCart_MVC.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("OnlineShoppingCart_MVC.Models.Admin", b =>
+                {
+                    b.Property<int>("admin_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("admin_id"));
+
+                    b.Property<string>("admin_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("admin_password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("admin_id");
+
+                    b.ToTable("Admin");
+                });
+
             modelBuilder.Entity("OnlineShoppingCart_MVC.Models.Category", b =>
                 {
                     b.Property<int>("category_id")
@@ -33,12 +54,38 @@ namespace OnlineShoppingCart_MVC.Migrations
 
                     b.Property<string>("category_name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("category_name");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("category_id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("OnlineShoppingCart_MVC.Models.CategoryProduct", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("category_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("category_id1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("product_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("category_id1");
+
+                    b.HasIndex("product_id");
+
+                    b.ToTable("CategoryProduct");
                 });
 
             modelBuilder.Entity("OnlineShoppingCart_MVC.Models.Product", b =>
@@ -53,15 +100,16 @@ namespace OnlineShoppingCart_MVC.Migrations
                     b.Property<int?>("category_id")
                         .HasColumnType("int");
 
-                    b.Property<string>("image_path")
+                    b.Property<string>("product_description")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("product_description");
+
+                    b.Property<string>("product_image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("product_image");
-
-                    b.Property<string>("product_description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("product_description");
 
                     b.Property<string>("product_mrp")
                         .IsRequired()
@@ -70,7 +118,8 @@ namespace OnlineShoppingCart_MVC.Migrations
 
                     b.Property<string>("product_name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("product_name");
 
                     b.Property<string>("product_offer_price")
@@ -84,23 +133,36 @@ namespace OnlineShoppingCart_MVC.Migrations
 
                     b.HasKey("product_id");
 
-                    b.HasIndex("category_id");
-
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("OnlineShoppingCart_MVC.Models.Product", b =>
+            modelBuilder.Entity("OnlineShoppingCart_MVC.Models.CategoryProduct", b =>
                 {
                     b.HasOne("OnlineShoppingCart_MVC.Models.Category", "Category")
-                        .WithMany("Product")
-                        .HasForeignKey("category_id");
+                        .WithMany("CategoryProduct")
+                        .HasForeignKey("category_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineShoppingCart_MVC.Models.Product", "Product")
+                        .WithMany("CategoryProduct")
+                        .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("OnlineShoppingCart_MVC.Models.Category", b =>
                 {
-                    b.Navigation("Product");
+                    b.Navigation("CategoryProduct");
+                });
+
+            modelBuilder.Entity("OnlineShoppingCart_MVC.Models.Product", b =>
+                {
+                    b.Navigation("CategoryProduct");
                 });
 #pragma warning restore 612, 618
         }

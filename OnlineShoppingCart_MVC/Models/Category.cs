@@ -9,12 +9,13 @@ namespace OnlineShoppingCart_MVC.Models
         [Column("category_id")]
         public int category_id { get; set; }
 
-        [Column("category_name")]
+        [Required]
+        [StringLength(20, ErrorMessage = "Category name not be exeed")]
+      
         public string category_name { get; set; }
 
-        [Column("category_image")]
-        public string category_image { get; set; }
 
-        public ICollection<Product>? Product { get; set; }
+
+        public ICollection<CategoryProduct> CategoryProduct { get; set; } = new List<CategoryProduct>();
     }
 }

@@ -1,0 +1,122 @@
+﻿@model OnlineShoppingCart_MVC.Models.Product
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Product</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .image-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h4 class="text-center">Edit Product</h4>
+        <hr />
+        <div class="row form-container">
+            <div class="col-md-6">
+                <div class="image-container" enctype="multipart/form-data">
+                    <img src="@Model.product_image" alt="Product Image" class="product-image" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form asp-action="EditProduct" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="product_id" />
+
+                    <div class="form-group">
+                        <label asp-for="product_name" class="control-label">Product Name</label>
+                        <input asp-for="product_name" class="form-control" />
+                        <span asp-validation-for="product_name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="category_id" class="control-label">Category</label>
+                        <select asp-for="category_id" class="form-control" asp-items="@(ViewBag.CategoryList as IEnumerable<SelectListItem>)">
+                            <option value="">Select Category</option>
+                        </select>
+                        <span asp-validation-for="category_id" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="product_description" class="control-label">Description</label>
+                        <input asp-for="product_description" class="form-control" />
+                        <span asp-validation-for="product_description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="product_mrp" class="control-label">MRP</label>
+                        <input asp-for="product_mrp" class="form-control" />
+                        <span asp-validation-for="product_mrp" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="product_offer_price" class="control-label">Offer Price</label>
+                        <input asp-for="product_offer_price" class="form-control" />
+                        <span asp-validation-for="product_offer_price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="product_quantity" class="control-label">Quantity</label>
+                        <input asp-for="product_quantity" class="form-control" />
+                        <span asp-validation-for="product_quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="product_image" class="control-label"></label>
+                        <input asp-for="product_image" type="file" name="file" class="form-control" />
+                        <span asp-validation-for="product_image" class="text-danger"></span>
+                    </div>
+
+
+                    <form asp-action="EditProduct" asp-route-id="@Model.product_id">
+                        <input type="hidden" asp-for="product_id" />
+                        <input type="submit" value="Save" class="btn btn-danger" /> |
+                        <a asp-action="IndexPoduct">Back to List</a>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+      
+
+    @section Scripts {
+        <!-- Add your script references here -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+    }
+</body>
+</html>

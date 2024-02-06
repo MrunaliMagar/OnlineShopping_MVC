@@ -1,0 +1,70 @@
+﻿@model OnlineShoppingCart_MVC.Models.Category
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        h4 {
+            color: #007bff;
+        }
+
+        .edit-category-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="edit-category-form col-md-4">
+        <h4 class="text-center mb-4">Edit Category</h4>
+        <hr />
+        <form asp-action="EditCategory">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="category_id" />
+            <div class="form-group">
+                <label asp-for="category_name" class="control-label"></label>
+                <input asp-for="category_name" class="form-control" />
+                <span asp-validation-for="category_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="IndexCategory" class="btn btn-secondary ml-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+
+   
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

@@ -22,20 +22,29 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Category" asp-action="GetAllCategories">Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="IndexCategory">Category</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="IndexProduct">Product</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">AboutUs</a>
                         </li>
+                   
+                        <div class="mx-auto d-flex">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 700px;">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="LoginAdmin" asp-route-id="1">Admin</a>
+                        </li>
                     </ul>
-                    <div class="mx-auto d-flex">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 700px;">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div>
-                    
                 </div>
             </div>
         </nav>

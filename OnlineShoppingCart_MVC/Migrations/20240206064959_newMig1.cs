@@ -5,7 +5,7 @@
 namespace OnlineShoppingCart_MVC.Migrations
 {
     /// <inheritdoc />
-    public partial class Mig1 : Migration
+    public partial class newMig1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,27 +40,57 @@ namespace OnlineShoppingCart_MVC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.product_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryProduct",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    product_id = table.Column<int>(type: "int", nullable: false),
+                    category_id = table.Column<int>(type: "int", nullable: false),
+                    category_id1 = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryProduct", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Product_Category_category_id",
-                        column: x => x.category_id,
+                        name: "FK_CategoryProduct_Category_category_id1",
+                        column: x => x.category_id1,
                         principalTable: "Category",
-                        principalColumn: "category_id");
+                        principalColumn: "category_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryProduct_Product_product_id",
+                        column: x => x.product_id,
+                        principalTable: "Product",
+                        principalColumn: "product_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_category_id",
-                table: "Product",
-                column: "category_id");
+                name: "IX_CategoryProduct_category_id1",
+                table: "CategoryProduct",
+                column: "category_id1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryProduct_product_id",
+                table: "CategoryProduct",
+                column: "product_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "CategoryProduct");
 
             migrationBuilder.DropTable(
                 name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "Product");
         }
     }
 }
